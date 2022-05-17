@@ -35,7 +35,8 @@ body {
   border-radius: 15px;
   min-height:300px;
   max-height: 300px;
-  overflow: auto;
+  overflow-y: scroll;
+  
 }
 
 .chatlog {
@@ -57,3 +58,4 @@ pre {
   background-color: #f0f0f0;
   margin-left: 20px;
 }
+

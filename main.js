@@ -42,12 +42,26 @@ class Message{
 
 const messageStore = []
 
+
+
 function createMessage(message){
 
     clear()
     const m = new Message({message:message})
     messageStore.push(m)
     print()
+
+// // convert array to JSON string
+// // using JSON.stringify()
+// const jsonArr  = JSON.stringify(messageStore);
+// // save to localStorage
+// localStorage.setItem("messageStore", jsonArr);
+// // get the string
+// // from localStorage
+// const str = localStorage.getItem("messageStore");
+// // convert string to valid object
+// const parsedArr = JSON.parse(str);
+// console.log(parsedArr);
 }
 
 function clear(){

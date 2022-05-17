@@ -1,49 +1,32 @@
-//Create elements DOM
-const container=document.createElement('div')
-container.id='main-container'
-container.class=''
-document.querySelector('body').appendChild(container)
+const bodybox=document.createElement('div')
+bodybox.id='bodybox'
+document.querySelector('body').appendChild(bodybox)
 
-const form=document.createElement('form')
-form.method='post'
-form.id='form'
-document.querySelector('#main-container').appendChild(form)
+const chatborder=document.createElement('div')
+chatborder.id='chatborder'
+document.querySelector('#bodybox').appendChild(chatborder)
 
-const inputName=document.createElement('input')
-inputName.type="text"
-inputName.id="name"
-inputName.name="name"
-inputName.placeholder="Please insert your name"
-document.querySelector('#form').appendChild(inputName)
+const formular=document.createElement('form')
+formular.method='post'
+formular.id='form'
+document.querySelector('#bodybox').appendChild(formular)
 
-const inputMessage=document.createElement('input')
-inputMessage.type="text"
-inputMessage.id="message"
-inputMessage.name="message"
-inputMessage.placeholder="Please inser your message"
-document.querySelector('#form').appendChild(inputMessage)
+const chat=document.createElement('input')
+chat.type="text"
+chat.name="message"
+chat.id='message'
+chat.placeholder="Hi there! Type here to talk to me."
+document.querySelector('#form').appendChild(chat)
 
-const buttonSubmit=document.createElement('button')
-buttonSubmit.type='submit'
-buttonSubmit.id="add"
-buttonSubmit.textContent='Send message'
-document.querySelector('#form').appendChild(buttonSubmit)
-
-const ul=document.createElement('ul')
-document.querySelector('body').appendChild(ul)
+const sendButton=document.createElement('button')
+sendButton.id='sendButton'
+sendButton.textContent='Send'
+document.querySelector('#form').appendChild(sendButton)
 
 class Message{
-    name
     message
     constructor(obj){
-        this.name=obj.name
         this.message=obj.message
-    }
-    getName(){
-        return this.name
-    }
-    setName(value){
-        this.name=value
     }
     getMessage(){
         return this.message
@@ -55,47 +38,37 @@ class Message{
 
 const messageStore = []
 
-function createMessage(name,message){
+function createMessage(message){
+
     clear()
-
-    const m = new Message({name:name,message:message})
+    const m = new Message({message:message})
     messageStore.push(m)
-
     print()
+    
 }
 
 function clear(){
     messageStore.forEach((m,index)=> {
-        document.getElementById("li_" + index).remove()
-        document.getElementById("but_" + index).remove()
+        document.getElementById("chatlog" + index).remove()
+        document.querySelector('hr').remove()
     })
 }
 
-function print(){
+ function print(){
     messageStore.forEach((m,index)=>{
-        const liEl = document.createElement('li')
-        liEl.className="container"
-        const but = document.createElement("button")
+        const p=document.createElement('p')
+        p.className="chatlog"
+        p.id="chatlog"+index
+        p.textContent=`${m.getMessage()}`
+        const hr=document.createElement('hr')
+        document.querySelector('#chatborder').append(p,hr)
         
-        liEl.textContent=`${m.getName()} ${m.getMessage()}`
-        liEl.id = "li_" + index
-        but.id = "but_" + index
-        but.textContent= "Delete Message"
-        document.querySelector('ul').append(liEl,but)
-        
-        const elem = document.getElementById(but.id)
-
-        elem.onclick = function() {
-            clear()
-            messageStore.splice(index, 1)
-            print()
-        }
     })
 }
     form.addEventListener('submit',(e)=>{
         e.preventDefault();
-        if(e.target.name.value!=='' && e.target.message!==''){
-            createMessage(e.target.name.value,e.target.message.value)
+        if(e.target.message.value!==''){
+            createMessage(e.target.message.value)
         }
         else{
             alert ("Invalid input")

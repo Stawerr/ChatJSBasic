@@ -1,3 +1,4 @@
+//Draw DOM
 const bodybox=document.createElement('div')
 bodybox.id='bodybox'
 document.querySelector('body').appendChild(bodybox)
@@ -15,24 +16,27 @@ const chat=document.createElement('input')
 chat.type="text"
 chat.name="message"
 chat.id='message'
-chat.placeholder="Hi there! Type here to talk to me."
+chat.placeholder="Hi there! Type your message."
 document.querySelector('#form').appendChild(chat)
 
 const sendButton=document.createElement('button')
 sendButton.id='sendButton'
 sendButton.textContent='Send'
+sendButton.type='submit'
+sendButton.className='btn btn-secondary btn-sm mt-2'
 document.querySelector('#form').appendChild(sendButton)
 
+
 class Message{
-    message
+    #message
     constructor(obj){
-        this.message=obj.message
+        this.#message=obj.message
     }
     getMessage(){
-        return this.message
+        return this.#message
     }
     setMessage(value){
-        this.message=value
+        this.#message=value
     }
 }
 
@@ -44,7 +48,6 @@ function createMessage(message){
     const m = new Message({message:message})
     messageStore.push(m)
     print()
-    
 }
 
 function clear(){
@@ -69,6 +72,7 @@ function clear(){
         e.preventDefault();
         if(e.target.message.value!==''){
             createMessage(e.target.message.value)
+            document.querySelector('input').value=null
         }
         else{
             alert ("Invalid input")
